@@ -3,12 +3,20 @@ import java.util.*;
 
 public class IRoadTrip {
 
+    String boardersPath;
+    String capDistPath;
+    String stateNamePath;
     HashMap<String, HashMap<String, Integer>> graph;
 
 
     public IRoadTrip (String [] args) {
-        // Replace with your code
+        boardersPath = args[0];
+        capDistPath = args[1];
+        stateNamePath = args[2];
+
         graph = new HashMap<>();
+
+        HashMap<String, Integer> translator = buildTranslator(stateNamePath);
         // generate the map by running a bunch of methods
     }
 
@@ -53,7 +61,6 @@ public class IRoadTrip {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return translatorMap;
     }
 
@@ -94,14 +101,11 @@ public class IRoadTrip {
 
         a3.acceptUserInput();
 
-        String filePath = "state_name.tsv";
-        String[] countryArray = extractStateName(filePath);
+//        String filePath = "state_name.tsv";
+//        HashMap<String, Integer> translator = buildTranslator(filePath);
+//        System.out.println(translator);
 
-        // Print the extracted country names
-        System.out.println("Countries with end date as 2020-12-31:");
-        for (String country : countryArray) {
-            System.out.println(country);
-        }
+
     }
 
 }

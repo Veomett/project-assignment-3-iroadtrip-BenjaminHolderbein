@@ -30,6 +30,34 @@ public class IRoadTrip {
         System.out.println("IRoadTrip - skeleton");
     }
 
+    public static HashMap<String, Integer> buildTranslator(String filePath){
+        HashMap<String, Integer> translatorMap = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            // Read each line from the TSV file
+            while ((line = br.readLine()) != null) {
+                // Split the line using tab as a delimiter
+                String[] data = line.split("\t");
+
+                // Extract everything before the comma, exclude anything in parentheses,
+                // and exclude the part after the slash
+                if (data.length == 5 && data[4].equals("2020-12-31")) {
+                    String[] countryParts = data[2].split(",");
+                    String countryName = countryParts[0].replaceAll("\\(.*?\\)", "").split("/")[0].trim();
+                    // Add the extracted country name to the list
+                    translatorMap.put(countryName, Integer.valueOf(data[0]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return translatorMap;
+    }
+
+
     public static String[] extractStateName(String filePath) {
         ArrayList<String> countriesList = new ArrayList<>();
 
